@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+body{
+    font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+/* header start */
+
+/* navbar start */
+
+.bg-dark-gradient{
+    background: #26282B;
+    background: linear-gradient(180deg, rgba(38, 40, 43, 1) 0%, rgba(38, 40, 43, 1) 50%, rgba(40, 49, 58, 1) 100%);
+}
+
+.nav-items li{
+    cursor: pointer;
+}
+
+.selected{
+    background-color: red;
+    border-left: 2px solid white;
+    background: #ffffff;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.24) 50%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* navbar end */
+
+/* header end */
