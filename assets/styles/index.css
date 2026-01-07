@@ -62,4 +62,15 @@ background: radial-gradient(circle, rgb(38, 40, 43) 0%, rgba(54, 72, 89, 0.478) 
 
 /* first card end */
 
+
+/* second card start */
+
+.wind-arrow{
+    right: 10px;
+    rotate: 0deg;
+}
+
+/* second card end */
+
+
 /* main end */
