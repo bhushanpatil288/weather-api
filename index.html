@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="./assets/styles/index.css">
 </head>
 <body class="bg-black text-white">
-    <div class="d-flex border container">
+    <div class="d-flex container mt-5 pt-5 pb-5">
         <!-------------------- NAVBAR START -------------------->
         <header>
             <nav class="bg-dark-gradient rounded rounded-4 d-flex flex-column gap-5 pb-5">
 
                 <!-- logo -->
-                <div class="text-center p-3 fw-semibold">
+                <div class="text-center p-3 fw-semibold logo-container">
                     <a href="./index.html" class="text-white text-decoration-none d-flex flex-column justify-content-center align-items-center">
                         <i class="ri-cloud-windy-line"></i>
                         Wethy
@@ -38,7 +38,41 @@
             </nav>
         </header>
         <!-------------------- NAVBAR END -------------------->
-        <main></main>
+
+        <main class="container">
+            <div class="row gy-2 gx-2">
+                <div class="col-4">
+                    <div class="current-weather-card bg-dark-gradient-v2 rounded rounded-4 overflow-hidden px-4">
+                        <div class="border-bottom-custom">
+                            <div class="d-flex position-relative">
+                                <div class="mt-5">
+                                    <img class="img-fluid" id="wicon" src="https://cdn.weatherapi.com/weather/64x64/day/116.png" alt="">
+                                    <p id="currentWeather" class="fw-bold mt-3 fs-2">20°C</p>
+                                    <p id="currentWeatherDescription">rainy</p>
+                                </div>
+                                <div class="position-absolute search-ico">
+                                    <i class="ri-search-line"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mt-3 text-small">
+                            <div class="d-flex gap-1">
+                                <i class="ri-map-pin-line"></i>
+                                <p id="location">Surat, gj</p>
+                            </div>
+                            <div class="d-flex gap-1">
+                                <i class="ri-calendar-2-line"></i>
+                                <p id="date">24 july, 2024</p>
+                                 <span id="time" class="fw-bold">5:01 AM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">test2</div>
+                <div class="col-4">test3</div>
+                <div class="col-8">test4</div>
+            </div>
+        </main>
     </div>
     <footer></footer>
     

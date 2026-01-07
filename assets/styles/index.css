@@ -7,9 +7,17 @@ body{
 
 /* navbar start */
 
+.logo-container{
+    user-select: none;
+}
+
 .bg-dark-gradient{
     background: #26282B;
     background: linear-gradient(180deg, rgba(38, 40, 43, 1) 0%, rgba(38, 40, 43, 1) 50%, rgba(40, 49, 58, 1) 100%);
+}
+.bg-dark-gradient-v2{
+    background: #26282B;
+background: radial-gradient(circle, rgb(38, 40, 43) 0%, rgba(54, 72, 89, 0.478) 50%, rgba(43, 57, 79, 0.435) 100%);
 }
 
 .nav-items li{
@@ -26,3 +34,32 @@ body{
 /* navbar end */
 
 /* header end */
+
+
+
+/* main start */
+
+/* first card start */
+
+.search-ico{
+    right: 20px;
+    top: 20px;
+    padding: 10px 13px;
+    background-color: #111;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.border-bottom-custom{
+    border-bottom: 1px solid rgba(128, 128, 128, 0.44);
+}
+
+.text-small{
+    font-size: 12px;
+}
+
+/* first card end */
+
+/* main end */
