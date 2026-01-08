@@ -15,7 +15,7 @@
     <div class="d-flex container mt-5 pt-5 pb-5">
         <!-------------------- NAVBAR START -------------------->
         <header>
-            <nav class="bg-dark-gradient rounded rounded-4 d-flex flex-column gap-5 pb-5">
+            <nav class="bg-dark-gradient rounded rounded-4 d-flex flex-column gap-5 pb-5 h-100">
 
                 <!-- logo -->
                 <div class="text-center p-3 fw-semibold logo-container">
@@ -43,7 +43,7 @@
             <div class="row gy-2 gx-2">
 
                 <!-- current weather card -->
-                <div class="col-4">
+                <div class="col-12 col-lg-4">
                     <div class="h-100 bg-dark-gradient-v2 rounded rounded-4 overflow-hidden d-flex flex-column justify-content-between px-4 py-1">
 
                         <div class="border-bottom-custom h-100">
@@ -74,16 +74,16 @@
                     </div>
                 </div>
 
-                <div class="col-8">
-                     <div class="h-100 bg-dark-gradient rounded rounded-4 overflow-hidden px-4 py-4">
+                <div class="col-12 col-lg-8">
+                     <div class="h-100 bg-dark-gradient-v2 rounded rounded-4 overflow-hidden px-4 py-4"`>
 
                         <h2 class="text-small fw-semibold">Today's Hightlight</h2>
 
                         <div class="container">
                             <div class="row gx-3 gy-3">
                                 <!-- wind status -->
-                                <div class="col-4">
-                                    <div class="bg-dark-gradient-v2 rounded rounded-4 px-2 py-3 shadow overflow-hidden">
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="bg-dark-gradient rounded rounded-4 px-2 py-3 shadow overflow-hidden h-100 d-flex flex-column justify-content-between">
                                         <p class="text-center">Wind Status</p>
                                         <div class="position-relative d-flex justify-content-start align-items-center">
                                             <i class="ri-windy-line fs-2"></i>
@@ -97,11 +97,22 @@
                                     </div>    
                                 </div>
 
-                                <div class="col-4">test2</div>
-                                <div class="col-4">test3</div>
-                                <div class="col-4">test4</div>
-                                <div class="col-4">test5</div>
-                                <div class="col-4">test6</div>
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="bg-dark-gradient rounded rounded-4 px-2 py-3 shadow overflow-hidden h-100 d-flex flex-column justify-content-between">
+                                        <p class="text-center">UV Index</p>
+                                        <div class="uv-bar-limit">
+                                            <div class="uv-bar"></div>
+                                        </div>
+                                        <div class="d-flex gap-1 justify-content-center align-items-center">
+                                            <p class="m-0 fs-4 uv">5.50</p>
+                                            <span class="text-light-emphasis">uv</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-4">test3</div>
+                                <div class="col-sm-6 col-lg-4">test4</div>
+                                <div class="col-sm-6 col-lg-4">test5</div>
+                                <div class="col-sm-6 col-lg-4">test6</div>
 
                             </div>
                         </div>

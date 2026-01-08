@@ -6,10 +6,14 @@ const wIcon = document.querySelector("#wicon");
 const date = document.querySelector("#date");
 const time = document.querySelector("#time");
 
-// wind status constans
+// wind status constants
 const windSpeed = document.querySelector(".windSpeed");
 const windDirection = document.querySelector(".wind-arrow");
 const windDirectionText = document.querySelector(".directionText");
+
+// uv status constants
+const uv = document.querySelector(".uv");
+const uvBar = document.querySelector(".uv-bar");
 
 document.addEventListener('DOMContentLoaded', ()=>{
     document.querySelector(".nav-items").addEventListener("click", function(e){
@@ -68,6 +72,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
         windDirection.style.rotate = `${data.current.wind_degree}deg`;
         windSpeed.innerHTML = data.current.wind_kph;
         windDirectionText.innerHTML = data.current.wind_dir
+
+        // uv status
+        uv.innerHTML = data.current.uv;
+        uvBar.style.width = ((data.current.uv) / 17) * 100 + '%';
 
     }
 
