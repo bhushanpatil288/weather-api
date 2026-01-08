@@ -71,8 +71,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
         _x(_h)
         ).replace(/[^a-f0-9]/g, '');
 
+        const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${KEY}&q=${city}&aqi=yes`
+        const proxyUrl = 'https://api.allorigins.win/raw?url=';
 
-        const bufferData = await fetch(`https://api.weatherapi.com/v1/current.json?key=${KEY}&q=${city}&aqi=yes`)
+
+        const bufferData = await fetch(proxyUrl + encodeURIComponent(apiUrl));
         const data = await bufferData.json();
         renderData(data);
     }
