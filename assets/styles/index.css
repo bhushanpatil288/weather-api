@@ -3,6 +3,21 @@ body{
     font-family: "M PLUS Rounded 1c", sans-serif;
 }
 
+::placeholder{
+    color: rgb(153, 153, 153) !important;
+}
+
+.search-input{
+    outline: none !important;
+    border: none;
+}
+
+.search-input:focus{
+    outline: 1px solid dark !important;
+    box-shadow: none;
+}
+
+
 /* header start */
 
 /* navbar start */
@@ -77,6 +92,7 @@ background: radial-gradient(circle, rgb(38, 40, 43) 0%, rgba(54, 72, 89, 0.478) 
 
 .uv-bar-limit{
     position: relative;
+    height: 1px;
 }
 
 .uv-bar-limit::after{
@@ -97,6 +113,10 @@ background: radial-gradient(circle, rgb(38, 40, 43) 0%, rgba(54, 72, 89, 0.478) 
     background: linear-gradient(90deg, rgba(89, 194, 222, 0) 0%, rgba(89, 136, 222, 0.54) 50%, rgba(89, 194, 222, 1) 100%);
     width: 50%;
     height: 20px;
+}
+
+.text-body-custom{
+    color: gray;
 }
 
 /* second card end */

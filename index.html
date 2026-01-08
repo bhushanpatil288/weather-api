@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="./assets/styles/index.css">
 </head>
 <body class="bg-black text-white">
+    <h1 class="text-center mt-5 fw-semibold">Simple Weather Checker</h1>
+    <div class="d-flex justify-content-center mt-4">
+        <form class="w-25 d-flex bg-dark rounded">
+            <input type="text" class="form-control bg-dark text-white search-input" placeholder="Search city"/>
+            <button class="btn btn-dark" type="submit">Search</button>
+        </form>
+    </div>
     <div class="d-flex container mt-5 pt-5 pb-5">
         <!-------------------- NAVBAR START -------------------->
         <header>
@@ -92,12 +99,11 @@
                                         </div>
                                         <div class="d-flex gap-1 justify-content-center align-items-center">
                                             <p class="windSpeed fw-bold fs-4 m-0">7.90</p>
-                                            <div>km/h</div>
+                                            <div class="text-body-custom">km/h</div>
                                         </div>
                                     </div>    
                                 </div>
-
-                                <div class="col-sm-6 col-lg-4">
+                                <div class="col-sm-6 col-lg-8">
                                     <div class="bg-dark-gradient rounded rounded-4 px-2 py-3 shadow overflow-hidden h-100 d-flex flex-column justify-content-between">
                                         <p class="text-center">UV Index</p>
                                         <div class="uv-bar-limit">
@@ -105,14 +111,54 @@
                                         </div>
                                         <div class="d-flex gap-1 justify-content-center align-items-center">
                                             <p class="m-0 fs-4 uv">5.50</p>
-                                            <span class="text-light-emphasis">uv</span>
+                                            <span class="text-body-custom">uv</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-lg-4">test3</div>
-                                <div class="col-sm-6 col-lg-4">test4</div>
-                                <div class="col-sm-6 col-lg-4">test5</div>
-                                <div class="col-sm-6 col-lg-4">test6</div>
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="bg-dark-gradient rounded rounded-4 px-2 py-3 shadow overflow-hidden h-100 d-flex flex-column justify-content-between">
+                                        <p class="text-center">Humidity</p>
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <div class="d-flex justify-content-center align-items-center gap-1">
+                                                <p class="fs-3 m-0 humidity">84</p>
+                                                <span class="text-body-custom">%</span>
+                                            </div>
+                                            <div class="text-body-custom d-flex flex-column align-items-center mt-3">
+                                                <i class="ri-drop-line"></i>
+                                                <p>Dew point: <span class="dew-point">27</span>°</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-4">
+                                     <div class="bg-dark-gradient rounded rounded-4 px-2 py-3 shadow overflow-hidden h-100 d-flex flex-column justify-content-center">
+                                        <p class="text-center">Visiblity</p>
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <div class="d-flex justify-content-center align-items-center gap-1">
+                                                <p class="fs-3 m-0 visibility">84</p>
+                                                <span class="text-body-custom">km</span>
+                                            </div>
+                                            <div class="text-body-custom d-flex flex-column align-items-center mt-3 fs-4">
+                                                <i class="ri-eye-line"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-4">
+                                      <div class="bg-dark-gradient rounded rounded-4 px-2 py-3 shadow overflow-hidden h-100 d-flex flex-column justify-content-center">
+                                        <p class="text-center">Feels Like</p>
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <div class="d-flex justify-content-center align-items-center gap-1">
+                                                <p class="fs-3 m-0 feel">84</p>
+                                                <span class="text-body-custom">°C</span>
+                                            </div>
+                                            <div class="text-body-custom d-flex flex-column align-items-center mt-3 fs-4">
+                                                <i class="ri-temp-cold-line"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
@@ -121,8 +167,22 @@
                     </div>
                 </div>
 
-                <div class="col-4">test3</div>
-                <div class="col-8">test4</div>
+                <div class="col-12">
+                    <div class="bg-dark-gradient-v2 rounded rounded-4 px-2 py-3 shadow overflow-hidden h-100 d-flex flex-column justify-content-center">
+                        <p>Air Quality</p>
+                        <ul class="list-unstyled row gy-4">
+                            <li class="col-sm-6 col-xl-4">Carbon Monoxide: <span class="co"></span></li>
+                            <!-- <li class="col-4">GB DEFRA Index: <span class="gb-defra-index"></span></li> -->
+                            <li class="col-sm-6 col-xl-4">Nitrogen Dioxide: <span class="no2"></span></li>
+                            <li class="col-sm-6 col-xl-4">Ozone: <span class="o3"></span></li>
+                            <li class="col-sm-6 col-xl-4">PM 2.5: <span class="pm2_5"></span></li>
+                            <li class="col-sm-6 col-xl-4">PM 10: <span class="pm10"></span></li>
+                            <li class="col-sm-6 col-xl-4">Sulpher Dioxide: <span class="so2"></span></li>
+                            <!-- <li class="col-4">US EPA Index: <span class="us-epa-index"></span></li> -->
+                        </ul>
+                        
+                    </div>
+                </div>
             </div>
         </main>
     </div>

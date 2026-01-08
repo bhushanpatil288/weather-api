@@ -15,6 +15,28 @@ const windDirectionText = document.querySelector(".directionText");
 const uv = document.querySelector(".uv");
 const uvBar = document.querySelector(".uv-bar");
 
+// humidity status constants
+const humidity = document.querySelector(".humidity");
+const dewPoint = document.querySelector(".dew-point");
+
+// visibility status constants
+const visibility = document.querySelector(".visibility");
+
+// feels like status constants
+const feel = document.querySelector(".feel");
+
+// air quality status constants
+const co = document.querySelector(".co");
+// const gb_defra_index = document.querySelector(".gb-defra-index");
+const no2 = document.querySelector(".no2");
+const o3 = document.querySelector(".o3");
+const pm2_5 = document.querySelector(".pm2_5");
+const pm10 = document.querySelector(".pm10");
+const so2 = document.querySelector(".so2");
+// const us_epa_index = document.querySelector(".us-epa-index");
+
+const form = document.querySelector("form");
+
 document.addEventListener('DOMContentLoaded', ()=>{
     document.querySelector(".nav-items").addEventListener("click", function(e){
         if(e.target.nodeName == 'LI'){
@@ -60,7 +82,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         // current temperature card data
         console.log(data);
         currentWeather.innerHTML = `${data.current.temp_c}°C`;
-        loc.innerHTML = `${data.location.name}, ${data.location.region}`;
+        loc.innerHTML = `${data.location.name}, ${data.location.region}, ${data.location.country}`;
         date.innerHTML = (data.location.localtime).slice(0,10);
         time.innerHTML = (data.location.localtime).slice(10, 15);
         currentWeatherDescription.innerHTML = data.current.condition.text;
@@ -77,9 +99,35 @@ document.addEventListener('DOMContentLoaded', ()=>{
         uv.innerHTML = data.current.uv;
         uvBar.style.width = ((data.current.uv) / 17) * 100 + '%';
 
+        // humidity status
+        humidity.innerHTML = data.current.humidity;
+        dewPoint.innerHTML = data.current.dewpoint_c;
+
+        // visibility status
+        visibility.innerHTML = data.current.vis_km;
+
+        // feels like status
+        feel.innerHTML = data.current.feelslike_c;
+
+        // air quality status
+        co.innerHTML = data.current.air_quality.co;
+        // gb_defra_index.innerHTML = data.current.air_quality.gb-defra-index;
+        no2.innerHTML = data.current.air_quality.no2;
+        o3.innerHTML = data.current.air_quality.o3;
+        pm2_5.innerHTML = data.current.air_quality.pm2_5;
+        pm10.innerHTML = data.current.air_quality.pm10;
+        so2.innerHTML = data.current.air_quality.so2;
+        // us_epa_index.innerHTML = data.current.air_quality.us-epa-index;
+
     }
 
 
-    fetchData("surat");
+    form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const city = document.querySelector(".search-input").value;
+        console.log(city);
+        fetchData(city);
+        document.querySelector(".search-input").value = '';
+    })
     
 })
