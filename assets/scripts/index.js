@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const renderData = (data) =>{
 
         // current temperature card data
-        console.log(data);
         currentWeather.innerHTML = `${data.current.temp_c}°C`;
         loc.innerHTML = `${data.location.name}, ${data.location.region}, ${data.location.country}`;
         date.innerHTML = (data.location.localtime).slice(0,10);
@@ -120,6 +119,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
         // us_epa_index.innerHTML = data.current.air_quality.us-epa-index;
 
     }
+
+    fetchData('surat');
 
 
     form.addEventListener("submit", (e)=>{
