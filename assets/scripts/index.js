@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         ).replace(/[^a-f0-9]/g, '');
 
 
-        const bufferData = await fetch(`http://api.weatherapi.com/v1/current.json?key=${KEY}&q=${city}&aqi=yes`)
+        const bufferData = await fetch(`https://api.weatherapi.com/v1/current.json?key=${KEY}&q=${city}&aqi=yes`)
         const data = await bufferData.json();
         renderData(data);
     }
