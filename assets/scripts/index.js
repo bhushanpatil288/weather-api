@@ -36,6 +36,7 @@ const so2 = document.querySelector(".so2");
 // const us_epa_index = document.querySelector(".us-epa-index");
 
 const form = document.querySelector("form");
+const loadingText = document.querySelector(".loading-text");
 
 document.addEventListener('DOMContentLoaded', ()=>{
     document.querySelector(".nav-items").addEventListener("click", function(e){
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     })
     
     const fetchData = async (city) =>{
+        loadingText.classList.remove("opacity-0");
         // making key a little bit harder to read :)
         const _a = [57, 99, 54, 56];
         const _b = [56, 52, 54, 48];
@@ -81,7 +83,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 
     const renderData = (data) =>{
-
         // current temperature card data
         currentWeather.innerHTML = `${data.current.temp_c}°C`;
         loc.innerHTML = `${data.location.name}, ${data.location.region}, ${data.location.country}`;
@@ -120,7 +121,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         pm10.innerHTML = data.current.air_quality.pm10;
         so2.innerHTML = data.current.air_quality.so2;
         // us_epa_index.innerHTML = data.current.air_quality.us-epa-index;
-
+        loadingText.classList.add("opacity-0");
     }
 
     fetchData('surat');
