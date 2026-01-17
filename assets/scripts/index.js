@@ -48,38 +48,149 @@ document.addEventListener('DOMContentLoaded', ()=>{
     
     const fetchData = async (city) =>{
         loadingText.classList.remove("opacity-0");
-        // making key a little bit harder to read :)
-        const _a = [57, 99, 54, 56];
-        const _b = [56, 52, 54, 48];
-        const _c = [102, 54, 102, 53];
-        const _d = [52, 52, 55, 51];
-        const _e = [98, 99, 48, 55];
-        const _f = [48, 57, 48, 55];
-        const _g = [50, 54, 48, 55];
-        const _h = [48, 49];
+        
+        try {
+            const geocodeUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`;
+            const geocodeResponse = await fetch(geocodeUrl);
+            const geocodeData = await geocodeResponse.json();
+            
+            if (!geocodeData.results || geocodeData.results.length === 0) {
+                throw new Error('City not found');
+            }
+            
+            const location = geocodeData.results[0];
+            const latitude = location.latitude;
+            const longitude = location.longitude;
 
-        function _x(arr) {
-            return arr.map(c => String.fromCharCode(c)).join('');
+            const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,uv_index,visibility,dewpoint_2m&timezone=auto`;
+            const weatherResponse = await fetch(weatherUrl);
+            const weatherData = await weatherResponse.json();
+
+            const airQualityUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&current=carbon_monoxide,nitrogen_dioxide,ozone,pm2_5,pm10,sulphur_dioxide`;
+            const airQualityResponse = await fetch(airQualityUrl);
+            const airQualityData = await airQualityResponse.json();
+
+            const transformedData = transformOpenMeteoData(location, weatherData, airQualityData);
+            renderData(transformedData);
+        } catch (error) {
+            console.error('Error fetching weather data:', error);
+            loadingText.innerHTML = 'Error: ' + error.message;
+            loadingText.classList.remove("opacity-0");
         }
+    }
+    
+    const transformOpenMeteoData = (location, weatherData, airQualityData) => {
+        const current = weatherData.current;
+        const aq = airQualityData.current;
 
-        const KEY = (
-        _x(_a) +
-        _x(_b) +
-        _x(_c) +
-        _x(_d) +
-        _x(_e) +
-        _x(_f) +
-        _x(_g) +
-        _x(_h)
-        ).replace(/[^a-f0-9]/g, '');
+        const weatherDescriptions = {
+            0: 'Clear sky', 1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast',
+            45: 'Foggy', 48: 'Depositing rime fog', 51: 'Light drizzle', 53: 'Moderate drizzle',
+            56: 'Light freezing drizzle', 57: 'Dense freezing drizzle', 61: 'Slight rain',
+            63: 'Moderate rain', 65: 'Heavy rain', 66: 'Light freezing rain', 67: 'Heavy freezing rain',
+            71: 'Slight snow fall', 73: 'Moderate snow fall', 75: 'Heavy snow fall', 77: 'Snow grains',
+            80: 'Slight rain showers', 81: 'Moderate rain showers', 82: 'Violent rain showers',
+            85: 'Slight snow showers', 86: 'Heavy snow showers', 95: 'Thunderstorm',
+            96: 'Thunderstorm with slight hail', 99: 'Thunderstorm with heavy hail'
+        };
+        
+        const weatherCode = current.weather_code;
+        const weatherText = weatherDescriptions[weatherCode] || 'Unknown';
+        
 
-        const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${KEY}&q=${city}&aqi=yes`
-        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+        const iconCode = current.weather_code;
+        const isDay = new Date().getHours() >= 6 && new Date().getHours() < 20;
+        const iconPath = isDay ? 'day' : 'night';
 
+        const iconUrl = `https://openweathermap.org/img/wn/${getWeatherIcon(iconCode, isDay)}@2x.png`;
+        
 
-        const bufferData = await fetch(proxyUrl + encodeURIComponent(apiUrl));
-        const data = await bufferData.json();
-        renderData(data);
+        const windDir = getWindDirection(current.wind_direction_10m);
+        
+
+        const now = new Date();
+        const dateTime = new Intl.DateTimeFormat('en-US', {
+            timeZone: weatherData.timezone,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        }).formatToParts(now);
+        
+        const year = dateTime.find(part => part.type === 'year').value;
+        const month = dateTime.find(part => part.type === 'month').value;
+        const day = dateTime.find(part => part.type === 'day').value;
+        const hour = dateTime.find(part => part.type === 'hour').value;
+        const minute = dateTime.find(part => part.type === 'minute').value;
+        const localTime = `${year}-${month}-${day} ${hour}:${minute}`;
+        
+        return {
+            location: {
+                name: location.name,
+                region: location.admin1 || location.country || '',
+                country: location.country || '',
+                localtime: localTime
+            },
+            current: {
+                temp_c: Math.round(current.temperature_2m),
+                condition: {
+                    text: weatherText,
+                    icon: iconUrl
+                },
+                wind_degree: current.wind_direction_10m,
+                wind_kph: Math.round(current.wind_speed_10m * 3.6), // Convert m/s to km/h
+                wind_dir: windDir,
+                uv: Math.round(current.uv_index * 10) / 10,
+                humidity: current.relative_humidity_2m,
+                dewpoint_c: Math.round(current.dewpoint_2m),
+                vis_km: (current.visibility / 1000).toFixed(1),
+                feelslike_c: Math.round(current.apparent_temperature),
+                air_quality: {
+                    co: (aq.carbon_monoxide / 1000).toFixed(2),
+                    no2: (aq.nitrogen_dioxide / 1000).toFixed(2),
+                    o3: (aq.ozone / 1000).toFixed(2),
+                    pm2_5: (aq.pm2_5 / 1000).toFixed(2),
+                    pm10: (aq.pm10 / 1000).toFixed(2),
+                    so2: (aq.sulphur_dioxide / 1000).toFixed(2)
+                }
+            }
+        };
+    }
+    
+    const getWindDirection = (degree) => {
+        const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+        return directions[Math.round(degree / 22.5) % 16];
+    }
+    
+    const getWeatherIcon = (code, isDay) => {
+        
+        const iconMap = {
+            0: isDay ? '01d' : '01n', // Clear sky
+            1: isDay ? '02d' : '02n', // Mainly clear
+            2: isDay ? '03d' : '03n', // Partly cloudy
+            3: '04d', // Overcast
+            45: '50d', // Foggy
+            48: '50d', // Depositing rime fog
+            51: '09d', // Light drizzle
+            53: '09d', // Moderate drizzle
+            61: '10d', // Slight rain
+            63: '10d', // Moderate rain
+            65: '10d', // Heavy rain
+            71: '13d', // Slight snow
+            73: '13d', // Moderate snow
+            75: '13d', // Heavy snow
+            80: '09d', // Slight rain showers
+            81: '09d', // Moderate rain showers
+            82: '09d', // Violent rain showers
+            85: '13d', // Slight snow showers
+            86: '13d', // Heavy snow showers
+            95: '11d', // Thunderstorm
+            96: '11d', // Thunderstorm with slight hail
+            99: '11d'  // Thunderstorm with heavy hail
+        };
+        return iconMap[code] || '01d';
     }
 
     const renderData = (data) =>{
@@ -89,9 +200,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         date.innerHTML = (data.location.localtime).slice(0,10);
         time.innerHTML = (data.location.localtime).slice(10, 15);
         currentWeatherDescription.innerHTML = data.current.condition.text;
-        console.log(`https://${(data.current.condition.icon).slice(2)}`);
-        console.log(wIcon.src);
-        wIcon.src = `https://${(data.current.condition.icon).slice(2)}`;
+        wIcon.src = data.current.condition.icon;
 
         // wind status
         windDirection.style.rotate = `${data.current.wind_degree}deg`;
